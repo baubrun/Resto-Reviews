@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Home from "./views/Home"
+import Home from "./components/Restaurants"
 import ReviewForm from "./components/ReviewForm"
 
 
@@ -9,8 +9,8 @@ const App = () => {
     <BrowserRouter>
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route exact path="/restaurants/:restaurantId" component={ReviewForm} />
-      <Route exact path="/" component={Home} />
+      <Route path="/restaurants/:restaurantId/update" component={ReviewForm} />
+      <Route path="/restaurants/:restaurantId/" component={Home} />
     </Switch>
       
     </BrowserRouter>
