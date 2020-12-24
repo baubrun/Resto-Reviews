@@ -27,11 +27,11 @@ const create = async (req, res) => {
 
 const list = async (req, res) => {
     try {
-        const data = await db.query(
+        const restaurants = await db.query(
             "SELECT * FROM restaurants"
-             )
+        )
         return res.status(200).json({
-            restaurants: data.rows
+            restaurants: restaurants.rows
         })
     } catch (error) {
         return res.status(500).json({
@@ -39,6 +39,25 @@ const list = async (req, res) => {
         });
     }
 }
+
+const read = async (req, res) => {
+    const {
+        restaurantId
+    } = req.params
+    try {
+        const restaurant = await db.query(
+            `SELECT * FROM restaurants WHERE id = ${restaurantId}`
+        )
+        return res.status(200).json({
+            restaurant: restaurant.rows[0]
+        })
+    } catch (error) {
+        return res.status(500).json({
+            error: error.message
+        });
+    }
+}
+
 
 
 const remove = async (req, res) => {
@@ -75,6 +94,7 @@ const update = async (req, res) => {
 module.exports = {
     create,
     list,
+    read,
     remove,
     update,
 }

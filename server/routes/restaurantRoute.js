@@ -10,6 +10,7 @@ router.route("/restaurants")
 
 
 router.route("/restaurants/:restaurantId")
+    .get(RestaurantController.read)
     .put(RestaurantController.update)
 
 
