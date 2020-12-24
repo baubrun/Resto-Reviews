@@ -1,11 +1,11 @@
 import React from 'react'
 
-const ReviewForm = () => {
+const NotFound = () => {
     return (
         <div>
-            ReviewForms
+            NotFound
         </div>
     )
 }
 
-export default ReviewForm
+export default NotFound
