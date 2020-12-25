@@ -30,21 +30,26 @@ const useStyles = makeStyles((theme) => ({
     margin: "16px",
     color: "white",
   },
-  button: {
+  update: {
     margin: theme.spacing(1),
-    backgroundColor: "#fff",
-  },
-  "&:hover": {
-    color: theme.palette.primary.dark,
+    backgroundColor: theme.palette.primary.main,
+    color: "#fff",
+    "&:hover": {
+      backgroundColor: theme.palette.secondary.light,
+    },  
   },
   paper: {
-    backgroundColor: "rgba(0, 131, 143, 0.5)",
+    // backgroundColor: "rgba(0, 131, 143, 0.5)",
     width: 550,
     margin: "auto",
   },
   cancel: {
-    backgroundColor: "#ff1a1a",
-    color: "#fff"
+    backgroundColor: theme.palette.secondary.main,
+    // backgroundColor: "#ff1a1a",
+    color: "#fff",
+    "&:hover": {
+      backgroundColor: "#ff1a1a",
+    },  
   },
 }));
 
@@ -177,7 +182,7 @@ const UpdateRestaurant = ({ match }) => {
             <Button
               variant="outlined"
               color="primary"
-              className={classes.button}
+              className={classes.update}
               endIcon={<UpdateIcon />}
               size="large"
               type="submit"

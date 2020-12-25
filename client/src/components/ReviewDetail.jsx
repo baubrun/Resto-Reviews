@@ -16,9 +16,19 @@ import { restaurantState } from "../redux/restaurantSlice";
 
 const useStyles = makeStyles((theme) => ({
   card: {
+    backgroundColor: theme.palette.secondary.light,
     width: 450,
     height: 150,
     margin: "0 64px",
+  },
+  cardHeader: {
+    backgroundColor: theme.palette.secondary.main,
+    color: "#fff",
+    textAlign: "center",
+  },
+  cardContent: {
+    color: "#fff",
+    textAlign: "center",
   },
 }));
 
@@ -27,7 +37,6 @@ const ReviewDetail = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { restaurants } = useSelector(restaurantState);
-
 
   return (
     <>
@@ -46,9 +55,9 @@ const ReviewDetail = (props) => {
           >
             {restaurants.map((item, idx) => (
               <Card key={idx} className={classes.card}>
-                <CardHeader className={classes.info} title="name" />
+                <CardHeader className={classes.cardHeader} title={item.name}/>
 
-                <CardContent>
+                <CardContent className={classes.cardContent}>
                   <Typography variant="body1">{item.name}</Typography>
                 </CardContent>
               </Card>
