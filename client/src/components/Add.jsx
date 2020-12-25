@@ -3,8 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import LocationSearchingIcon from "@material-ui/icons/LocationSearching";
-
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 const useStyles = makeStyles((theme) => ({
   input: {
     color: theme.palette.secondary.main,
@@ -23,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Search = (props) => {
+const Add = (props) => {
   const classes = useStyles();
 
   return (
@@ -34,6 +33,8 @@ const Search = (props) => {
             name="name"
             onChange={(evt) => props.handleChange(evt)}
             placeholder="NAME"
+            required
+            type="text"
             value={props.values.name}
             InputProps={{
               className: classes.input,
@@ -45,6 +46,8 @@ const Search = (props) => {
             name="location"
             onChange={(evt) => props.handleChange(evt)}
             placeholder="LOCATION"
+            required
+            type="text"
             value={props.values.location}
             InputProps={{
               className: classes.input,
@@ -55,7 +58,9 @@ const Search = (props) => {
           <TextField
             name="price_range"
             onChange={(evt) => props.handleChange(evt)}
-            placeholder="PRICE RANGE"
+            placeholder="PRICE 1-5"
+            required
+            type="number"
             value={props.values.price_range}
             InputProps={{
               className: classes.input,
@@ -67,9 +72,10 @@ const Search = (props) => {
             variant="contained"
             color="primary"
             className={classes.button}
-            endIcon={<LocationSearchingIcon />}
+            endIcon={<AddCircleOutlineIcon />}
+            size="large"
           >
-            SEARCH
+            ADD
           </Button>
         </Grid>
       </Grid>
@@ -77,4 +83,4 @@ const Search = (props) => {
   );
 };
 
-export default Search;
+export default Add;

@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import Search from "../components/Search";
+import Search from "./Add";
 import MaterialTable from "material-table";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +15,6 @@ import {
   createRestaurant,
   restaurantState,
   removeRestaurant,
-  updateRestaurant,
 } from "../redux/restaurantSlice";
 
 const useStyles = makeStyles((theme) => ({
@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Restaurants = () => {
+  const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
   const { restaurants } = useSelector(restaurantState);
@@ -42,10 +43,13 @@ const Restaurants = () => {
     price_range: "",
   });
 
+
   useEffect(() => {
     dispatch(listRestaurants());
-  }, [dispatch]);
+  }, []);
 
+
+  
   const handleChange = (event) => {
     const { name, value } = event.target;
     setValues({
@@ -53,6 +57,7 @@ const Restaurants = () => {
       [name]: value,
     });
   };
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -65,7 +70,10 @@ const Restaurants = () => {
 
     dispatch(createRestaurant(data));
   };
-  const classes = useStyles();
+
+
+
+
   return (
     <>
       <Search
