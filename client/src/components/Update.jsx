@@ -13,7 +13,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import Grid from "@material-ui/core/Grid";
 import Select from "@material-ui/core/Select";
-import UpdateIcon from '@material-ui/icons/Update';
+import UpdateIcon from "@material-ui/icons/Update";
 
 import { restaurantState, updateRestaurant } from "../redux/restaurantSlice";
 
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     margin: theme.spacing(1),
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
   },
   "&:hover": {
     color: theme.palette.primary.dark,
@@ -42,12 +42,16 @@ const useStyles = makeStyles((theme) => ({
     width: 550,
     margin: "auto",
   },
+  cancel: {
+    backgroundColor: "#ff1a1a",
+    color: "#fff"
+  },
 }));
 
-const Update = ({match}) => {
+const Update = ({ match }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const {restaurants} = useSelector(restaurantState)
+  const { restaurants } = useSelector(restaurantState);
   const classes = useStyles();
   const [values, setValues] = useState({
     rating: "",
@@ -56,22 +60,19 @@ const Update = ({match}) => {
     price_range: "",
   });
 
-  const restaurantUrl = match.params.restaurantId
+  const restaurantUrl = match.params.restaurantId;
 
   const getRestaurant = () => {
-    const found = restaurants.find(i => i.id === parseInt(restaurantUrl))
-    return found
-  }
-
+    const found = restaurants.find((i) => i.id === parseInt(restaurantUrl));
+    return found;
+  };
 
   useEffect(() => {
-    if (restaurants){
-      getRestaurant()
-      setValues(getRestaurant())
+    if (restaurants) {
+      getRestaurant();
+      setValues(getRestaurant());
     }
-  }, [])
-
-
+  }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -80,7 +81,6 @@ const Update = ({match}) => {
       [name]: value,
     });
   };
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -99,60 +99,59 @@ const Update = ({match}) => {
     history.push("/");
   };
 
-
   return (
     <Paper className={classes.paper} elevation={3}>
-    <form onSubmit={handleSubmit}>
-      <Grid
-        direction="column"
-        container
-        justify="center"
-        alignItems="center"
-        spacing={4}
-      >
-        <Grid item>
-          <Typography variant="h3">UPDATE RESTAURANT</Typography>
-        </Grid>
-        <Grid item className={classes.textfield}>
-          <TextField
-            name="name"
-            onChange={(evt) => handleChange(evt)}
-            placeholder="NAME"
-            required
-            type="text"
-            value={values.name || ""}
-            InputProps={{
-              className: classes.input,
-            }}
-          />
-        </Grid>
-        <Grid item className={classes.textfield}>
-          <TextField
-            name="location"
-            onChange={(evt) => handleChange(evt)}
-            placeholder="LOCATION"
-            required
-            type="text"
-            value={values.location || ""}
-            InputProps={{
-              className: classes.input,
-            }}
-          />
-        </Grid>
-        <Grid item className={classes.textfield}>
-          <TextField
-            name="price_range"
-            onChange={(evt) => handleChange(evt)}
-            placeholder="PRICE 1-5"
-            required
-            type="number"
-            value={values.price_range || ""}
-            InputProps={{
-              className: classes.input,
-            }}
-          />
-        </Grid>
-        {/* <Grid item>
+      <form onSubmit={handleSubmit}>
+        <Grid
+          direction="column"
+          container
+          justify="center"
+          alignItems="center"
+          spacing={4}
+        >
+          <Grid item>
+            <Typography variant="h3">UPDATE RESTAURANT</Typography>
+          </Grid>
+          <Grid item className={classes.textfield}>
+            <TextField
+              name="name"
+              onChange={(evt) => handleChange(evt)}
+              placeholder="NAME"
+              required
+              type="text"
+              value={values.name || ""}
+              InputProps={{
+                className: classes.input,
+              }}
+            />
+          </Grid>
+          <Grid item className={classes.textfield}>
+            <TextField
+              name="location"
+              onChange={(evt) => handleChange(evt)}
+              placeholder="LOCATION"
+              required
+              type="text"
+              value={values.location || ""}
+              InputProps={{
+                className: classes.input,
+              }}
+            />
+          </Grid>
+          <Grid item className={classes.textfield}>
+            <TextField
+              name="price_range"
+              onChange={(evt) => handleChange(evt)}
+              placeholder="PRICE 1-5"
+              required
+              type="number"
+              value={values.price_range || ""}
+              InputProps={{
+                className: classes.input,
+              }}
+            />
+          </Grid>
+          {/* <Grid item>
           <FormControl 
           className={classes.formControl}
           >
@@ -174,21 +173,31 @@ const Update = ({match}) => {
             </Select>
           </FormControl>
         </Grid> */}
-        <Grid item>
-        <Button
-            variant="outlined"
-            color="primary"
-            className={classes.button}
-            endIcon={<UpdateIcon />}
-            size="large"
-            type="submit"
-          >
-            UPDATE
-          </Button>
- 
+          <Grid item>
+            <Button
+              variant="outlined"
+              color="primary"
+              className={classes.button}
+              endIcon={<UpdateIcon />}
+              size="large"
+              type="submit"
+            >
+              UPDATE
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              className={classes.cancel}
+              variant="outlined"
+              color="primary"
+              size="large"
+              onClick={() => history.push("/")}
+            >
+              CANCEL
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
-    </form>
+      </form>
     </Paper>
   );
 };

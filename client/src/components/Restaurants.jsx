@@ -9,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import LaunchIcon from '@material-ui/icons/Launch';
 
 import {
   listRestaurants,
@@ -29,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.light,
   },
   editIcon: {
+    color: "#00acc1",
+  },
+  viewIcon: {
     color: "#00acc1",
   },
 }));
@@ -130,7 +134,13 @@ const Restaurants = () => {
                 tooltip: "Delete",
                 onClick: (evt, rowData) => {
                   dispatch(removeRestaurant(rowData.id));
-                  // console.log(rowData.id);
+                },
+              },
+              {
+                icon: () => <LaunchIcon className={classes.viewIcon} />,
+                tooltip: "View",
+                onClick: (evt, rowData) => {
+                  history.push(`/restaurants/${rowData.id}`);
                 },
               },
             ]}
