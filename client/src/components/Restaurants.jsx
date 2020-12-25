@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
-import Search from "./Add";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import MaterialTable from "material-table";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import MonetizationOnOutlinedIcon from "@material-ui/icons/MonetizationOnOutlined";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
@@ -12,7 +12,6 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 import {
   listRestaurants,
-  createRestaurant,
   restaurantState,
   removeRestaurant,
 } from "../redux/restaurantSlice";
@@ -37,52 +36,13 @@ const Restaurants = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { restaurants } = useSelector(restaurantState);
-  const [values, setValues] = useState({
-    name: "",
-    location: "",
-    price_range: "",
-  });
-
 
   useEffect(() => {
     dispatch(listRestaurants());
   }, []);
 
-
-  
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
-  };
-
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    const data = {
-      name: values.name,
-      location: values.location,
-      price_range: values.price_range,
-    };
-
-    dispatch(createRestaurant(data));
-  };
-
-
-
-
   return (
     <>
-      <Search
-        handleChange={handleChange}
-        setValues={setValues}
-        submit={handleSubmit}
-        values={values}
-      />
-
       <Grid
         container
         direction="row"
@@ -106,7 +66,6 @@ const Restaurants = () => {
                 letterSpacing: "2px",
               },
               rowStyle: {
-                // backgroundColor: "rgb(0, 131, 143, 0.5)",
                 backgroundColor: "#000",
                 fontSize: "24px",
                 color: "white",
@@ -118,7 +77,7 @@ const Restaurants = () => {
               { title: "Location", field: "location" },
               { title: "Price", field: "price_range" },
               { title: "id", field: "id", hidden: true },
-              { title: "Ratings", field: "ratings" },
+              // { title: "Ratings", field: "ratings" },
             ]}
             data={
               restaurants &&
@@ -152,11 +111,8 @@ const Restaurants = () => {
                 icon: () => <DeleteIcon className={classes.deleteIcon} />,
                 tooltip: "Delete",
                 onClick: (evt, rowData) => {
-                  dispatch(
-                    removeRestaurant({
-                      id: rowData.id,
-                    })
-                  );
+                  dispatch(removeRestaurant(rowData.id));
+                  // console.log(rowData.id);
                 },
               },
             ]}

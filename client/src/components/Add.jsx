@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+
+import { createRestaurant } from "../redux/restaurantSlice";
+
 const useStyles = makeStyles((theme) => ({
   input: {
     color: theme.palette.secondary.main,
     fontSize: "24px",
-    // marginLeft: "16px"
   },
   textfield: {
     margin: "16px",
@@ -22,20 +26,49 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Add = (props) => {
+const initValues = {
+  name: "",
+  location: "",
+  price_range: "",
+};
+
+const Add = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
+  const [values, setValues] = useState(initValues);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const data = {
+      name: values.name,
+      location: values.location,
+      price_range: values.price_range,
+    };
+
+    dispatch(createRestaurant(data));
+    setValues(initValues);
+  };
 
   return (
-    <form onSubmit={props.handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item className={classes.textBox}>
           <TextField
             name="name"
-            onChange={(evt) => props.handleChange(evt)}
+            onChange={(evt) => handleChange(evt)}
             placeholder="NAME"
             required
             type="text"
-            value={props.values.name}
+            value={values.name}
             InputProps={{
               className: classes.input,
             }}
@@ -44,11 +77,11 @@ const Add = (props) => {
         <Grid item className={classes.textfield}>
           <TextField
             name="location"
-            onChange={(evt) => props.handleChange(evt)}
+            onChange={(evt) => handleChange(evt)}
             placeholder="LOCATION"
             required
             type="text"
-            value={props.values.location}
+            value={values.location}
             InputProps={{
               className: classes.input,
             }}
@@ -57,11 +90,11 @@ const Add = (props) => {
         <Grid item className={classes.textfield}>
           <TextField
             name="price_range"
-            onChange={(evt) => props.handleChange(evt)}
+            onChange={(evt) => handleChange(evt)}
             placeholder="PRICE 1-5"
             required
             type="number"
-            value={props.values.price_range}
+            value={values.price_range}
             InputProps={{
               className: classes.input,
             }}
@@ -74,6 +107,7 @@ const Add = (props) => {
             className={classes.button}
             endIcon={<AddCircleOutlineIcon />}
             size="large"
+            type="submit"
           >
             ADD
           </Button>

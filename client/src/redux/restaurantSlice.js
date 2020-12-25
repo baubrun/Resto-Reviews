@@ -102,7 +102,6 @@ export const restaurantSlice = createSlice({
                 state.restaurants = [...state.restaurants, restaurant]
             }
         },
-
         [createRestaurant.rejected]: (state, action) => {
             state.loading = false;
             state.error = action.payload.error;
@@ -129,6 +128,7 @@ export const restaurantSlice = createSlice({
             state.error = action.payload.error;
         },
 
+        
         [removeRestaurant.pending]: (state) => {
             state.loading = true;
         },
@@ -136,14 +136,12 @@ export const restaurantSlice = createSlice({
             state.loading = false;
             const {
                 error,
-                restaurant
+                restaurantId
             } = action.payload;
             if (error) {
                 state.error = error;
             } else {
-                const found = state.restaurants.findIndex(r => r.id === restaurant.id)
-                const restoCopy = state.restaurants.splice(found, 1)
-                state.restaurants = restoCopy
+                state.restaurants = state.restaurants.filter(i => i.id !== restaurantId)
             }
         },
         [removeRestaurant.rejected]: (state, action) => {

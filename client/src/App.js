@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Restaurants from "./components/Restaurants"
+import Home from "./views/Home"
 import Update from "./components/Update"
 import RestaurantDetail from "./components/RestaurantDetail"
 import NotFound from "./components/NotFound"
@@ -10,7 +10,7 @@ const App = () => {
   return (
     <BrowserRouter>
     <Switch>
-      <Route exact path="/" component={Restaurants} />
+      <Route exact path="/" component={Home} />
       <Route path="/restaurants/:restaurantId/update" component={Update} />
       <Route path="/restaurants/:restaurantId/" component={RestaurantDetail} />
       <NotFound />

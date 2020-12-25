@@ -1,5 +1,6 @@
 const db = require("../db");
 
+
 const create = async (req, res) => {
   const { name, location, price_range } = req.body;
 
@@ -14,27 +15,29 @@ const create = async (req, res) => {
       price_range,
     ]);
     return res.status(200).json({
-      restaurant: restaurant.rows,
+      restaurant: restaurant.rows[0]
     });
   } catch (error) {
     return res.status(500).json({
-      error: error.message,
+      error: error.message
     });
   }
 };
+
 
 const list = async (req, res) => {
   try {
     const restaurants = await db.query("SELECT * FROM restaurants");
     return res.status(200).json({
-      restaurants: restaurants.rows,
+      restaurants: restaurants.rows
     });
   } catch (error) {
     return res.status(500).json({
-      error: error.message,
+      error: error.message
     });
   }
 };
+
 
 const read = async (req, res) => {
   const { restaurantId } = req.params;
@@ -48,18 +51,20 @@ const read = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({
-      error: error.message,
+      error: error.message
     });
   }
 };
 
+
 const remove = async (req, res) => {
   const { restaurantId } = req.params;
-    
   try {
-    await db.query("DELETE from restaurants WHERE id = $1", [restaurantId]);
+    const deletedId = await db.query(
+      "DELETE from restaurants WHERE id = $1 RETURNING id", 
+    [restaurantId]);
     return res.status(200).json({
-      success: true,
+      restaurantId: deletedId.rows[0].id
     });
   } catch (error) {
     return res.status(500).json({
@@ -67,6 +72,7 @@ const remove = async (req, res) => {
     });
   }
 };
+
 
 const update = async (req, res) => {
   const { name, location, price_range } = req.body;
