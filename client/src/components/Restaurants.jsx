@@ -12,9 +12,12 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     margin: "0 2px",
   },
+  table: {
+    margin: "16px 0"
+  }
 }));
 
-const Restaurants = (props) => {
+const Restaurants = () => {
   const dispatch = useDispatch();
   const {restaurants} = useSelector(restaurantState)
   const [values, setValues] = useState({
@@ -62,6 +65,7 @@ const Restaurants = (props) => {
       direction="row" 
       justify="center" 
       alignItems="center"
+      className={classes.table}
       >
         <Grid item xs={10}>
           <MaterialTable

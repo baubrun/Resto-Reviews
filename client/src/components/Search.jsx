@@ -7,12 +7,13 @@ import LocationSearchingIcon from "@material-ui/icons/LocationSearching";
 
 const useStyles = makeStyles((theme) => ({
   input: {
-    color: "#fff",
+    color: theme.palette.secondary.main,
     fontSize: "24px",
     // marginLeft: "16px"
   },
   textfield: {
     margin: "16px",
+    color: "white",
   },
   button: {
     margin: theme.spacing(1),
@@ -34,6 +35,9 @@ const Search = (props) => {
             onChange={(evt) => props.handleChange(evt)}
             placeholder="NAME"
             value={props.values.name}
+            InputProps={{
+              className: classes.input,
+            }}
           />
         </Grid>
         <Grid item className={classes.textfield}>
@@ -42,6 +46,9 @@ const Search = (props) => {
             onChange={(evt) => props.handleChange(evt)}
             placeholder="LOCATION"
             value={props.values.location}
+            InputProps={{
+              className: classes.input,
+            }}
           />
         </Grid>
         <Grid item className={classes.textfield}>
@@ -50,7 +57,10 @@ const Search = (props) => {
             onChange={(evt) => props.handleChange(evt)}
             placeholder="PRICE RANGE"
             value={props.values.price_range}
-            />
+            InputProps={{
+              className: classes.input,
+            }}
+          />
         </Grid>
         <Grid item>
           <Button
