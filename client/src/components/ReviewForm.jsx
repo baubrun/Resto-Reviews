@@ -61,7 +61,7 @@ const ReviewForm = () => {
   const history = useHistory();
   const classes = useStyles();
   const [values, setValues] = useState({
-      comments: "",
+    comment: "",
     name: "",
     rating: "",
   });
@@ -135,7 +135,6 @@ const ReviewForm = () => {
               />
             </Grid>
           </Grid>
-
           <Grid container direction="row" justify="center" alignItems="center">
             <Grid item>
               <TextField
@@ -146,7 +145,7 @@ const ReviewForm = () => {
                 name="text"
                 onChange={(evt) => handleChange(evt)}
                 type="text"
-                value={values.comments}
+                value={values.comment}
                 variant="outlined"
               />
             </Grid>

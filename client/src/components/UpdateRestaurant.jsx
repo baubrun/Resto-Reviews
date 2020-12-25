@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import UpdateIcon from '@material-ui/icons/Update';
-
+import Spinner from "./Spinner"
 
 import { restaurantState, updateRestaurant } from "../redux/restaurantSlice";
 
@@ -64,13 +64,12 @@ const UpdateRestaurant = ({ match }) => {
   const restaurantUrl = match.params.restaurantId;
 
   const getRestaurant = () => {
-    const found = restaurants.find((i) => i.id === parseInt(restaurantUrl));
+    const found = restaurants.find((i) => i.id === restaurantUrl);
     return found;
   };
 
   useEffect(() => {
-    if (restaurants) {
-      getRestaurant();
+    if (restaurants.length > 0) {
       setValues(getRestaurant());
     }
   }, []);
@@ -92,7 +91,6 @@ const UpdateRestaurant = ({ match }) => {
         name: values.name,
         location: values.location,
         price_range: values.price_range,
-        // rating: values.rating,
       },
     };
 
@@ -100,6 +98,9 @@ const UpdateRestaurant = ({ match }) => {
     history.push("/");
   };
 
+  // if (restaurants.length > 0) {
+  //   return <Spinner />
+  // }
   return (
     <Paper className={classes.paper} elevation={3}>
       <form onSubmit={handleSubmit}>
@@ -117,6 +118,7 @@ const UpdateRestaurant = ({ match }) => {
             <TextField
               name="name"
               onChange={(evt) => handleChange(evt)}
+              label="Name"
               placeholder="NAME"
               required
               type="text"
@@ -130,6 +132,7 @@ const UpdateRestaurant = ({ match }) => {
             <TextField
               name="location"
               onChange={(evt) => handleChange(evt)}
+              label="Location"
               placeholder="LOCATION"
               required
               type="text"
@@ -143,6 +146,7 @@ const UpdateRestaurant = ({ match }) => {
             <TextField
               name="price_range"
               onChange={(evt) => handleChange(evt)}
+              label="Price"
               placeholder="PRICE 1-5"
               required
               type="number"

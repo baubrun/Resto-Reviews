@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,7 +46,7 @@ const Reviews = (props) => {
     const restaurantId = props.match.params.restaurantId
 
     const getReviews = () => {
-        const found = restaurants.filter(i => i.id === parseInt(restaurantId))
+        const found = restaurants.filter(i => i.id == restaurantId)
         return found
     }
 

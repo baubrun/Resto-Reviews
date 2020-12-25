@@ -3,20 +3,20 @@ const db = require("../db");
 
 
 const create = async (req, res) => {
-    const { name, rating,  } = req.body;
-  
-    const text = "INSERT INTO reviews(name, rating)";
-    const values = "VALUES($1, $2)";
-    const returning = "RETURNING id, name, rating ";
+    const { name, comment, rating,  } = req.body;
+    console.log('req.body :>>', req.body)
+    const text = "INSERT INTO reviews(name, comment, rating)";
+    const values = "VALUES($1, $2, $3)";
+    const returning = "RETURNING id, name, comment, rating ";
   
     try {
-      const restaurant = await db.query(`${text} ${values} ${returning}`, [
-        name,
+      const review = await db.query(`${text} ${values} ${returning}`, [
+        name, 
+        comment,
         rating,
-        ,
       ]);
       return res.status(200).json({
-        restaurant: restaurant.rows[0]
+        review: review.rows[0]
       });
     } catch (error) {
       return res.status(500).json({
