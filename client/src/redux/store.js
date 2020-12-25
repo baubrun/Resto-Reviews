@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import restaurantsReducer from "./eventsSlice"
+import restaurantsReducer from "./restaurantSlice"
 
 
 export default configureStore({

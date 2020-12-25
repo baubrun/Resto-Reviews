@@ -10,7 +10,7 @@ import {
 
 
 export const listRestaurants = createAsyncThunk(
-    "/api/restaurants",
+    "/listRestaurants",
     async () => {
         try {
             const res = await axios.get(`${domain}/api/restaurants`);
@@ -18,6 +18,25 @@ export const listRestaurants = createAsyncThunk(
         } catch (error) {
             return {
                 error: error.message
+            };
+        }
+    }
+);
+
+
+export const createRestaurant = createAsyncThunk(
+    "/createRestaurant",
+    async (data) => {
+        try {
+            const res = await axios.post(
+                `${domain}/api/restaurants/`,
+                data
+            )
+            return res.data
+
+        } catch (error) {
+            return {
+                error: error.message,
             };
         }
     });
@@ -49,6 +68,28 @@ export const restaurantSlice = createSlice({
             }
         },
         [listRestaurants.rejected]: (state, action) => {
+            state.loading = false;
+            state.error = action.payload.error;
+        },
+
+
+
+        [createRestaurant.pending]: (state) => {
+            state.loading = true;
+        },
+        [createRestaurant.fulfilled]: (state, action) => {
+            state.loading = false;
+            const {
+                error,
+                restaurant
+            } = action.payload;
+            if (error) {
+                state.error = error;
+            } else {
+                state.restaurants = [...state.restaurants, restaurant]
+            }
+        },
+        [createRestaurant.rejected]: (state, action) => {
             state.loading = false;
             state.error = action.payload.error;
         },
