@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     color: theme.palette.secondary.main,
     fontSize: "24px",
+    minWidth: 250
   },
   textfield: {
     margin: "16px",
@@ -91,12 +92,16 @@ const AddRestaurant = () => {
           <TextField
             name="price_range"
             onChange={(evt) => handleChange(evt)}
-            placeholder="PRICE 1-5"
+            placeholder="PRICE"
             required
             type="number"
             value={values.price_range}
             InputProps={{
-              className: classes.input,
+              inputProps: { 
+                max: 5, 
+                min: 0,
+                className: classes.input,
+            }
             }}
           />
         </Grid>
