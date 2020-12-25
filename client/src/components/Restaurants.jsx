@@ -16,6 +16,8 @@ import {
   removeRestaurant,
 } from "../redux/restaurantSlice";
 
+import Spinner from "./Spinner";
+
 const useStyles = makeStyles((theme) => ({
   icon: {
     margin: "0 2px",
@@ -35,11 +37,27 @@ const Restaurants = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
-  const { restaurants } = useSelector(restaurantState);
+  const { restaurants, loading } = useSelector(restaurantState);
 
   useEffect(() => {
     dispatch(listRestaurants());
   }, []);
+
+  if (loading) {
+    return (
+      <Grid
+      container
+      direction="row"
+      justify="center"
+      alignItems="center"
+    >
+      <Grid item>
+        <Spinner />
+      </Grid>
+    </Grid>
+
+    )
+  }
 
   return (
     <>

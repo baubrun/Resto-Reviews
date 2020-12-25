@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import InputAdornment from "@material-ui/core/InputAdornment";
 import Paper from "@material-ui/core/Paper";
-import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
@@ -14,8 +13,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import Grid from "@material-ui/core/Grid";
 import Select from "@material-ui/core/Select";
+import UpdateIcon from '@material-ui/icons/Update';
 
-import { updateRestaurant } from "../redux/restaurantSlice";
+import { restaurantState, updateRestaurant } from "../redux/restaurantSlice";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -32,15 +32,22 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     margin: theme.spacing(1),
+    backgroundColor: "#fff"
   },
   "&:hover": {
     color: theme.palette.primary.dark,
   },
+  paper: {
+    backgroundColor: "rgba(0, 131, 143, 0.5)",
+    width: 550,
+    margin: "auto",
+  },
 }));
 
-const Update = () => {
+const Update = ({match}) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const {restaurants} = useSelector(restaurantState)
   const classes = useStyles();
   const [values, setValues] = useState({
     rating: "",
@@ -49,6 +56,23 @@ const Update = () => {
     price_range: "",
   });
 
+  const restaurantUrl = match.params.restaurantId
+
+  const getRestaurant = () => {
+    const found = restaurants.find(i => i.id === parseInt(restaurantUrl))
+    return found
+  }
+
+
+  useEffect(() => {
+    if (restaurants){
+      getRestaurant()
+      setValues(getRestaurant())
+    }
+  }, [])
+
+
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setValues({
@@ -56,6 +80,7 @@ const Update = () => {
       [name]: value,
     });
   };
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -71,7 +96,9 @@ const Update = () => {
     history.push("/restaurants");
   };
 
+
   return (
+    <Paper className={classes.paper} elevation={3}>
     <form onSubmit={handleSubmit}>
       <Grid
         direction="column"
@@ -90,7 +117,7 @@ const Update = () => {
             placeholder="NAME"
             required
             type="text"
-            value={values.name}
+            value={values.name || ""}
             InputProps={{
               className: classes.input,
             }}
@@ -103,7 +130,7 @@ const Update = () => {
             placeholder="LOCATION"
             required
             type="text"
-            value={values.location}
+            value={values.location || ""}
             InputProps={{
               className: classes.input,
             }}
@@ -116,13 +143,13 @@ const Update = () => {
             placeholder="PRICE 1-5"
             required
             type="number"
-            value={values.price_range}
+            value={values.price_range || ""}
             InputProps={{
               className: classes.input,
             }}
           />
         </Grid>
-        <Grid item>
+        {/* <Grid item>
           <FormControl 
           className={classes.formControl}
           >
@@ -143,9 +170,23 @@ const Update = () => {
               })}
             </Select>
           </FormControl>
+        </Grid> */}
+        <Grid item>
+        <Button
+            variant="outlined"
+            color="primary"
+            className={classes.button}
+            endIcon={<UpdateIcon />}
+            size="large"
+            type="submit"
+          >
+            UPDATE
+          </Button>
+ 
         </Grid>
       </Grid>
     </form>
+    </Paper>
   );
 };
 
