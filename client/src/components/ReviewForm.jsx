@@ -157,11 +157,10 @@ const ReviewForm = () => {
                 variant="outlined"
                 color="primary"
                 className={classes.update}
-                endIcon={<UpdateIcon />}
                 size="large"
                 type="submit"
               >
-                UPDATE
+                SUBMIT
               </Button>
             </Grid>
             <Grid item>

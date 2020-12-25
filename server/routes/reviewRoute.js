@@ -1,17 +1,12 @@
 const express = require("express")
-const RestaurantController = require("../controllers/restaurantCtrl")
+const ReviewController = require("../controllers/reviewCtrl")
 
 const router = express.Router()
 
 
 router.route("/api/reviews")
-    .get(RestaurantController.list)
-    .post(RestaurantController.create)
-
-
-router.route("/api/reviews/:reviewsId")
-    .put(RestaurantController.update)
-
+    .get(ReviewController.list)
+    .post(ReviewController.create)
 
 
 module.exports = router
