@@ -10,10 +10,6 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import UpdateIcon from "@material-ui/icons/Update";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
 
 import { createReview } from "../redux/restaurantSlice";
 
@@ -30,6 +26,10 @@ const useStyles = makeStyles((theme) => ({
     margin: "16px",
     color: "white",
     minWidth: 250,
+  },
+  textArea: {
+    margin: "16px",
+    minWidth: 500,
   },
   update: {
     margin: theme.spacing(1),
@@ -50,15 +50,20 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: "#ff1a1a",
     },
   },
+  title: {
+    color: theme.palette.primary.main,
+    margin: "64px 0 16px 0",
+  },
 }));
 
-const ReviewForm = ({ match }) => {
+const ReviewForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
   const [values, setValues] = useState({
-    rating: "",
+      comments: "",
     name: "",
+    rating: "",
   });
 
   const handleChange = (event) => {
@@ -81,73 +86,99 @@ const ReviewForm = ({ match }) => {
   };
 
   return (
-    <Paper className={classes.paper} elevation={3}>
-      <form onSubmit={handleSubmit}>
-        <Grid
-          direction="row"
-          container
-          justify="center"
-          alignItems="center"
-          spacing={2}
-        >
-          <Grid item className={classes.textfield}>
-            <TextField
-              name="name"
-              onChange={(evt) => handleChange(evt)}
-              placeholder="NAME"
-              required
-              type="text"
-              value={values.name || ""}
-              InputProps={{
-                className: classes.input,
-              }}
-            />
-          </Grid>
-          <Grid item>
-            <TextField
-            className={classes.textfield}
-              name="rating"
-              onChange={(evt) => handleChange(evt)}
-              placeholder="RATING"
-              required
-              type="number"
-              value={values.rating}
-              InputProps={{
-                inputProps: {
-                  max: 5,
-                  min: 0,
+    <>
+      <Grid container direction="row" justify="center" alignItems="center">
+        <Grid item>
+          <Typography className={classes.title} variant="h4">
+            ADD A REVIEW
+          </Typography>
+        </Grid>
+      </Grid>
+      <Paper className={classes.paper} elevation={3}>
+        <form onSubmit={handleSubmit}>
+          <Grid
+            direction="row"
+            container
+            justify="center"
+            alignItems="center"
+            spacing={2}
+          >
+            <Grid item className={classes.textfield}>
+              <TextField
+                name="name"
+                onChange={(evt) => handleChange(evt)}
+                placeholder="NAME"
+                required
+                type="text"
+                value={values.name}
+                InputProps={{
                   className: classes.input,
-                },
-              }}
-            />
+                }}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                className={classes.textfield}
+                name="rating"
+                onChange={(evt) => handleChange(evt)}
+                placeholder="RATING"
+                required
+                type="number"
+                value={values.rating}
+                InputProps={{
+                  inputProps: {
+                    max: 5,
+                    min: 0,
+                    className: classes.input,
+                  },
+                }}
+              />
+            </Grid>
           </Grid>
 
-          <Grid item>
-            <Button
-              variant="outlined"
-              color="primary"
-              className={classes.update}
-              endIcon={<UpdateIcon />}
-              size="large"
-              type="submit"
-            >
-              UPDATE
-            </Button>
+          <Grid container direction="row" justify="center" alignItems="center">
+            <Grid item>
+              <TextField
+                className={classes.textArea}
+                label="COMMENTS"
+                multiline
+                rows={10}
+                name="text"
+                onChange={(evt) => handleChange(evt)}
+                type="text"
+                value={values.comments}
+                variant="outlined"
+              />
+            </Grid>
           </Grid>
-          <Grid item>
-            <Button
-              className={classes.cancel}
-              variant="outlined"
-              color="primary"
-              size="large"
-              onClick={() => history.push("/")}
-            >
-              CANCEL
-            </Button>
+          <Grid container direction="row" justify="center" alignItems="center">
+            <Grid item>
+              <Button
+                variant="outlined"
+                color="primary"
+                className={classes.update}
+                endIcon={<UpdateIcon />}
+                size="large"
+                type="submit"
+              >
+                UPDATE
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                className={classes.cancel}
+                variant="outlined"
+                color="primary"
+                size="large"
+                onClick={() => history.push("/")}
+              >
+                CANCEL
+              </Button>
+            </Grid>
           </Grid>
-        </Grid>
-      </form>
-    </Paper>
+        </form>
+      </Paper>
+    </>
   );
 };
 
