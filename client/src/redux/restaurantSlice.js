@@ -27,22 +27,6 @@ export const createRestaurant = createAsyncThunk(
     });
 
 
-export const createReview = createAsyncThunk(
-    "/createReview",
-    async (data) => {
-        try {
-            const res = await axios.post(
-                `${domain}/api/review`,
-                data
-            )
-            return res.data
-        } catch (error) {
-            return {
-                error: error.message
-            };
-        }
-    });
-
 
     export const listRestaurants = createAsyncThunk(
         "/listRestaurants",
@@ -122,28 +106,6 @@ export const restaurantSlice = createSlice({
             }
         },
         [createRestaurant.rejected]: (state, action) => {
-            state.loading = false;
-            state.error = action.payload.error;
-        },
-
-
-
-        [createReview.pending]: (state) => {
-            state.loading = true;
-        },
-        [createReview.fulfilled]: (state, action) => {
-            state.loading = false;
-            const {
-                error,
-                restaurant
-            } = action.payload;
-            if (error) {
-                state.error = error;
-            } else {
-                state.restaurants = [...state.restaurants, restaurant]
-            }
-        },
-        [createReview.rejected]: (state, action) => {
             state.loading = false;
             state.error = action.payload.error;
         },
