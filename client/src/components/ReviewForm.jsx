@@ -9,9 +9,8 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import UpdateIcon from "@material-ui/icons/Update";
 
-import { createReview } from "../redux/restaurantSlice";
+import { createReview } from "../redux/reviewSlice";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -31,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "16px",
     minWidth: 500,
   },
-  update: {
+  submit: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.primary.main,
     color: "#fff",
@@ -56,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ReviewForm = () => {
+const ReviewForm = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
@@ -64,7 +63,10 @@ const ReviewForm = () => {
     comment: "",
     name: "",
     rating: "",
+    restaurant_id: props.restaurantId
+
   });
+
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -74,16 +76,20 @@ const ReviewForm = () => {
     });
   };
 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const data = {
       name: values.name,
+      comment: values.comment,
       rating: values.rating,
+      restaurant_id: values.restaurant_id
     };
 
     dispatch(createReview(data));
   };
+
 
   return (
     <>
@@ -142,7 +148,7 @@ const ReviewForm = () => {
                 label="COMMENTS"
                 multiline
                 rows={10}
-                name="text"
+                name="comment"
                 onChange={(evt) => handleChange(evt)}
                 type="text"
                 value={values.comment}
@@ -155,7 +161,7 @@ const ReviewForm = () => {
               <Button
                 variant="outlined"
                 color="primary"
-                className={classes.update}
+                className={classes.submit}
                 size="large"
                 type="submit"
               >
