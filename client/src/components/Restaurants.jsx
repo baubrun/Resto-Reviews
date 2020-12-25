@@ -11,13 +11,16 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import LaunchIcon from '@material-ui/icons/Launch';
 
+
 import {
   listRestaurants,
   restaurantState,
   removeRestaurant,
 } from "../redux/restaurantSlice";
 
+
 import Spinner from "./Spinner";
+
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -27,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "16px 0",
   },
   deleteIcon: {
-    color: theme.palette.secondary.light,
+    color: "#fff",
   },
   editIcon: {
     color: "#00acc1",
@@ -37,15 +40,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 const Restaurants = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
   const { restaurants, loading } = useSelector(restaurantState);
 
+
   useEffect(() => {
     dispatch(listRestaurants());
   }, []);
+
 
   if (loading) {
     return (
@@ -62,6 +68,7 @@ const Restaurants = () => {
 
     )
   }
+
 
   return (
     <>

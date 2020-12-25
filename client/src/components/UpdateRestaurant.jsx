@@ -7,15 +7,13 @@ import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
 import { makeStyles } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
 import Grid from "@material-ui/core/Grid";
-import Select from "@material-ui/core/Select";
 import UpdateIcon from '@material-ui/icons/Update';
 
+
 import { restaurantState, updateRestaurant } from "../redux/restaurantSlice";
+
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -39,13 +37,11 @@ const useStyles = makeStyles((theme) => ({
     },  
   },
   paper: {
-    // backgroundColor: "rgba(0, 131, 143, 0.5)",
     width: 550,
     margin: "auto",
   },
   cancel: {
     backgroundColor: theme.palette.secondary.main,
-    // backgroundColor: "#ff1a1a",
     color: "#fff",
     "&:hover": {
       backgroundColor: "#ff1a1a",
