@@ -60,8 +60,8 @@ const Restaurants = (props) => {
                   id: item.id,
                   name: item.name,
                   location: item.location,
-                  price_range: [...Array(item.price_range).keys()].map((i) => {
-                    return <MonetizationOnOutlinedIcon className={classes.icon}/>
+                  price_range: [...Array(item.price_range).keys()].map((i, idx) => {
+                    return <MonetizationOnOutlinedIcon key={idx} className={classes.icon}/>
                   }),
                 };
               })
