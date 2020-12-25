@@ -43,7 +43,6 @@ const Reviews = (props) => {
     const [reviews, setReviews] = useState([])
 
     const restaurantId = props.match.params.restaurantId
-    console.log('restaurantId :>> ', restaurantId);
 
     const getReviews = () => {
         const found = restaurants.filter(i => i.id === parseInt(restaurantId))
