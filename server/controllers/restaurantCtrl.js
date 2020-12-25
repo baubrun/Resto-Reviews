@@ -89,7 +89,7 @@ const update = async (req, res) => {
       restaurantId,
     ]);
     return res.status(200).json({
-      restaurant: restaurant.rows
+      restaurant: restaurant.rows[0]
     });
   } catch (error) {
     return res.status(500).json({

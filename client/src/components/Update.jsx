@@ -86,14 +86,17 @@ const Update = ({match}) => {
     event.preventDefault();
 
     const data = {
-      name: values.name,
-      location: values.location,
-      price_range: values.price_range,
-      rating: values.rating,
+      id: restaurantUrl,
+      restaurant: {
+        name: values.name,
+        location: values.location,
+        price_range: values.price_range,
+        // rating: values.rating,
+      },
     };
 
     dispatch(updateRestaurant(data));
-    history.push("/restaurants");
+    history.push("/");
   };
 
 
