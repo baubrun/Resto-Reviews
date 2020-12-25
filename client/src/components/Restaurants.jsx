@@ -2,8 +2,26 @@ import React from "react";
 import MaterialTable from "material-table";
 import MonetizationOnOutlinedIcon from "@material-ui/icons/MonetizationOnOutlined";
 import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
+
+
+
+
+
+const useStyles = makeStyles((theme) => ({
+  icon: {
+    margin: "0 2px",
+  }
+}));
+
+
+
+
+
+
 
 const Restaurants = (props) => {
+  const classes = useStyles();
   return (
     <>
       <Grid container direction="row" justify="center" alignItems="center">
@@ -24,7 +42,9 @@ const Restaurants = (props) => {
               },
               rowStyle: {
                 backgroundColor: "#00838f",
-                fontSize: "20px",
+                fontSize: "24px",
+                color: "white",
+                fontWeight: "bolder",
               },
             }}
             columns={[
@@ -40,10 +60,9 @@ const Restaurants = (props) => {
                   id: item.id,
                   name: item.name,
                   location: item.location,
-                  // price_range: `${"$".repeat(item.price_range)}`,
-                  price_range: 
-                  [...Array(item.price_range).keys()].map((i) => <MonetizationOnOutlinedIcon />)
-                  
+                  price_range: [...Array(item.price_range).keys()].map((i) => {
+                    return <MonetizationOnOutlinedIcon className={classes.icon}/>
+                  }),
                 };
               })
             }

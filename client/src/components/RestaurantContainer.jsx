@@ -39,10 +39,8 @@ const RestaurantContainer = () => {
       price_range: values.price_range,
     };
 
-    const data = await api.createRestaurant(form);
-    if (data & data.error) {
-      console.log("error :>> ", data.error);
-    }
+    await api.createRestaurant(form);
+    
   };
 
   return (
