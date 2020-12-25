@@ -64,7 +64,7 @@ export const updateRestaurant = createAsyncThunk(
     async (data) => {
         try {
             const res = await axios.put(
-                `${domain}/api/restaurants/${data.restaurantId}`,
+                `${domain}/api/restaurants/${data.id}`,
                 data
             )
             return res.data

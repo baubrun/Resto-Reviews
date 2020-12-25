@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Search from "../components/Search";
 import MaterialTable from "material-table";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import MonetizationOnOutlinedIcon from "@material-ui/icons/MonetizationOnOutlined";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteIcon from "@material-ui/icons/Delete";
 
 import {
   listRestaurants,
@@ -24,15 +25,16 @@ const useStyles = makeStyles((theme) => ({
     margin: "16px 0",
   },
   deleteIcon: {
-    color: theme.palette.secondary.light
+    color: theme.palette.secondary.light,
   },
   editIcon: {
-    color: "#00acc1"
-  }
+    color: "#00acc1",
+  },
 }));
 
 const Restaurants = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { restaurants } = useSelector(restaurantState);
   const [values, setValues] = useState({
     name: "",
@@ -134,12 +136,9 @@ const Restaurants = () => {
               {
                 icon: () => <EditIcon className={classes.editIcon} />,
                 tooltip: "Edit",
-                onClick: (evt, rowData) =>
-                  dispatch(
-                    updateRestaurant({
-                      _id: rowData._id,
-                    })
-                  ),
+                onClick: (evt, rowData) => {
+                  history.push(`/restaurants/${rowData.id}/update`);
+                },
               },
               {
                 icon: () => <DeleteIcon className={classes.deleteIcon} />,
