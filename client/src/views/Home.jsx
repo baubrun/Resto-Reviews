@@ -1,11 +1,11 @@
 import React from 'react'
 import Restaurant from "../components/Restaurants"
-import Add from "../components/Add"
+import AddRestaurant from "../components/AddRestaurant"
 
 const Home = () => {
     return (
         <>
-           <Add />
+           <AddRestaurant />
            <Restaurant />
 
         </>

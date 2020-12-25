@@ -32,7 +32,7 @@ const initValues = {
   price_range: "",
 };
 
-const Add = () => {
+const AddRestaurant = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [values, setValues] = useState(initValues);
@@ -117,4 +117,4 @@ const Add = () => {
   );
 };
 
-export default Add;
+export default AddRestaurant;

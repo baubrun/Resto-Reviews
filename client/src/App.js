@@ -1,18 +1,19 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./views/Home"
-import Update from "./components/Update"
-import RestaurantDetail from "./components/RestaurantDetail"
+import UpdateRestaurant from "./components/UpdateRestaurant"
+import ReviewDetail from "./components/ReviewDetail"
 import NotFound from "./components/NotFound"
 import "./css/app.css"
+import Reviews from './components/Reviews';
 
 const App = () => {
   return (
     <BrowserRouter>
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route path="/restaurants/:restaurantId/update" component={Update} />
-      <Route path="/restaurants/:restaurantId/" component={RestaurantDetail} />
+      <Route path="/restaurants/:restaurantId/update" component={UpdateRestaurant} />
+      <Route path="/restaurants/:restaurantId/" component={Reviews} />
       <NotFound />
     </Switch>
       

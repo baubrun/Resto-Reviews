@@ -13,7 +13,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import Grid from "@material-ui/core/Grid";
 import Select from "@material-ui/core/Select";
-import UpdateIcon from "@material-ui/icons/Update";
+import UpdateIcon from '@material-ui/icons/Update';
 
 import { restaurantState, updateRestaurant } from "../redux/restaurantSlice";
 
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Update = ({ match }) => {
+const UpdateRestaurant = ({ match }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { restaurants } = useSelector(restaurantState);
@@ -202,4 +202,4 @@ const Update = ({ match }) => {
   );
 };
 
-export default Update;
+export default UpdateRestaurant;
