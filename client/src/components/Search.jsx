@@ -1,107 +1,87 @@
-import React, {useState} from 'react'
+import React from "react";
 import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import {api} from "../../api"
-
+import LocationSearchingIcon from "@material-ui/icons/LocationSearching";
+import Icon from "@material-ui/core/Icon";
 
 const useStyles = makeStyles((theme) => ({
-    input: {
-      color: "#fff",
-      margin: "8px 0",
-      fontSize: "24px",
-    },
-    error: {
-      backgroundColor: "#ff3333",
-      color: "white",
-      cursor: "pointer",
-      verticalAlign: "middle",
-      textAlign: "center",
-      padding: "10px",
-    },
-    purchase: {
-      padding: "8px 0",
-      fontSize: "24px"
-    },
-    row: {
-      margin: "50px 0",
-    },
-  }));
-  
+  input: {
+    color: "#fff",
+    fontSize: "24px",
+    // marginLeft: "16px"
+  },
+  textfield: {
+    margin: "16px",
+  },
+  button: {
+    margin: theme.spacing(1),
+  },
+  "&:hover": {
+    color: theme.palette.primary.dark,
+  },
+}));
 
-const Search = () => {
-    const classes = useStyles();
-    const [values, setValues] = useState({
-        name: "",
-        location: "",
-        price_range: "",
-    })
+const Search = (props) => {
+  const classes = useStyles();
 
+  return (
+    <form onSubmit={props.handleSubmit}>
+      <Grid container direction="row" justify="center" alignItems="center">
+        <Grid item className={classes.textBox}>
+          <TextField
+            name="name"
+            onChange={(evt) => props.handleChange(evt)}
+            placeholder="NAME"
+            value={props.values.name}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start"></InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
+        <Grid item className={classes.textfield}>
+          <TextField
+            name="location"
+            onChange={(evt) => props.handleChange(evt)}
+            placeholder="LOCATION"
+            value={props.values.location}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start"></InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
+        <Grid item className={classes.textfield}>
+          <TextField
+            name="price_range"
+            onChange={(evt) => props.handleChange(evt)}
+            placeholder="PRICE RANGE"
+            value={props.values.price_range}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start"></InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
+        <Grid item>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            endIcon={<LocationSearchingIcon />}
+          >
+            SEARCH
+          </Button>
+        </Grid>
+      </Grid>
+    </form>
+  );
+};
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setValues({
-          ...values,
-          [name]: value,
-        });
-      };
-    
-
-      const handleSubmit = async (event) => {
-        event.preventDefault();
-    
-        const form = {
-
-          name: values.name,
-          location: values.location,
-          price_range: values.price_range,
-        };
-    
-        const data = await api.createRestaurant(form)
-        if (data & data.error){
-            console.log('error :>> ', data.error);
-        }
-        
-      };
-    
-
-
-
-    return (
-        <form onSubmit={handleSubmit}>
-            <TextField
-              fullWidth
-              name="name"
-              onChange={(evt) => handleChange(evt)}
-              placeholder="Name"
-              value={values.name}
-              InputProps={{
-                className: classes.input
-              }}
-            />
-            <TextField
-              fullWidth
-              name="location"
-              onChange={(evt) => handleChange(evt)}
-              placeholder="Location"
-              value={values.location}
-              InputProps={{
-                className: classes.input
-              }}
-            />
-            <TextField
-              fullWidth
-              name="price_range"
-              onChange={(evt) => handleChange(evt)}
-              placeholder="PRICE RANGE"
-              value={values.price_range}
-              InputProps={{
-                className: classes.input
-              }}
-            />
-
-        </form>
-    )
-}
-
-export default Search
+export default Search;
