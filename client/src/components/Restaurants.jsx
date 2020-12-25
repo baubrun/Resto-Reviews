@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import MaterialTable from "material-table";
-import { useHistory } from "react-router-dom";
 import MonetizationOnOutlinedIcon from "@material-ui/icons/MonetizationOnOutlined";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";

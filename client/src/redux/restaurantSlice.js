@@ -128,7 +128,7 @@ export const restaurantSlice = createSlice({
             state.error = action.payload.error;
         },
 
-        
+
         [removeRestaurant.pending]: (state) => {
             state.loading = true;
         },
@@ -180,8 +180,6 @@ export const restaurantSlice = createSlice({
     },
 });
 
-
-// export const {} = restaurantSlice.actions;
 
 export const restaurantState = (state) => state.restaurants;
 export default restaurantSlice.reducer;

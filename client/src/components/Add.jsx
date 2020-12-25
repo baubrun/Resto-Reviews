@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
@@ -61,7 +61,7 @@ const Add = () => {
   return (
     <form onSubmit={handleSubmit}>
       <Grid container direction="row" justify="center" alignItems="center">
-        <Grid item className={classes.textBox}>
+        <Grid item className={classes.textfield}>
           <TextField
             name="name"
             onChange={(evt) => handleChange(evt)}
