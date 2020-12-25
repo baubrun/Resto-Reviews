@@ -29,7 +29,13 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     color: "#fff",
     textAlign: "center",
+
   },
+  title: {
+    color: theme.palette.secondary.main,
+    fontWeight: "bolder",
+    margin: "16px 0"
+  }
 }));
 
 const ReviewDetail = (props) => {
@@ -42,7 +48,7 @@ const ReviewDetail = (props) => {
     <>
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item>
-          <Typography variant="h5">REVIEWS</Typography>
+          <Typography className={classes.title} variant="h4">REVIEWS</Typography>
         </Grid>
       </Grid>
       <Grid container direction="row" justify="center" alignItems="center">
@@ -58,7 +64,7 @@ const ReviewDetail = (props) => {
                 <CardHeader className={classes.cardHeader} title={item.name}/>
 
                 <CardContent className={classes.cardContent}>
-                  <Typography variant="body1">{item.name}</Typography>
+                  <Typography variant="h6">{item.name}</Typography>
                 </CardContent>
               </Card>
             ))}
