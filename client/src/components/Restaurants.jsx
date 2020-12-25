@@ -1,9 +1,9 @@
 import React from "react";
 import MaterialTable from "material-table";
-
+import MonetizationOnOutlinedIcon from "@material-ui/icons/MonetizationOnOutlined";
 import Grid from "@material-ui/core/Grid";
 
-const Restaurants = () => {
+const Restaurants = (props) => {
   return (
     <>
       <Grid container direction="row" justify="center" alignItems="center">
@@ -33,6 +33,20 @@ const Restaurants = () => {
               { title: "Price", field: "price_range" },
               { title: "id", field: "id", hidden: true },
             ]}
+            data={
+              props.restaurants &&
+              props.restaurants.map((item) => {
+                return {
+                  id: item.id,
+                  name: item.name,
+                  location: item.location,
+                  // price_range: `${"$".repeat(item.price_range)}`,
+                  price_range: 
+                  [...Array(item.price_range).keys()].map((i) => <MonetizationOnOutlinedIcon />)
+                  
+                };
+              })
+            }
           />
         </Grid>
       </Grid>

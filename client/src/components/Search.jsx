@@ -1,11 +1,9 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
-import InputAdornment from "@material-ui/core/InputAdornment";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import LocationSearchingIcon from "@material-ui/icons/LocationSearching";
-import Icon from "@material-ui/core/Icon";
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -36,11 +34,6 @@ const Search = (props) => {
             onChange={(evt) => props.handleChange(evt)}
             placeholder="NAME"
             value={props.values.name}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start"></InputAdornment>
-              ),
-            }}
           />
         </Grid>
         <Grid item className={classes.textfield}>
@@ -49,11 +42,6 @@ const Search = (props) => {
             onChange={(evt) => props.handleChange(evt)}
             placeholder="LOCATION"
             value={props.values.location}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start"></InputAdornment>
-              ),
-            }}
           />
         </Grid>
         <Grid item className={classes.textfield}>
@@ -62,12 +50,7 @@ const Search = (props) => {
             onChange={(evt) => props.handleChange(evt)}
             placeholder="PRICE RANGE"
             value={props.values.price_range}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start"></InputAdornment>
-              ),
-            }}
-          />
+            />
         </Grid>
         <Grid item>
           <Button

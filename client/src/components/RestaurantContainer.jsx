@@ -11,13 +11,15 @@ const RestaurantContainer = () => {
     price_range: "",
   });
 
+
   useEffect(() => {
     fetchData();
   }, []);
 
+
   const fetchData = async () => {
     const data = await api.listRestaurants();
-    setRestaurants(data);
+    setRestaurants(data.restaurants);
   };
 
   const handleChange = (event) => {
