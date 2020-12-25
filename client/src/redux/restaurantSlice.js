@@ -42,6 +42,41 @@ export const createRestaurant = createAsyncThunk(
     });
 
 
+export const removeRestaurant = createAsyncThunk(
+    "/removeRestaurant",
+    async (restaurantId) => {
+        try {
+            const res = await axios.delete(
+                `${domain}/api/restaurants/${restaurantId}`,
+                
+            )
+            return res.data
+        } catch (error) {
+            return {
+                error: error.message,
+            };
+        }
+    });
+
+
+export const updateRestaurant = createAsyncThunk(
+    "/updateRestaurant",
+    async (data) => {
+        try {
+            const res = await axios.put(
+                `${domain}/api/restaurants/${data.restaurantId}`,
+                data
+            )
+            return res.data
+        } catch (error) {
+            return {
+                error: error.message
+            };
+        }
+    });
+
+
+
 
 export const restaurantSlice = createSlice({
     name: "restaurants",
@@ -52,6 +87,28 @@ export const restaurantSlice = createSlice({
     },
     reducers: {},
     extraReducers: {
+        [createRestaurant.pending]: (state) => {
+            state.loading = true;
+        },
+        [createRestaurant.fulfilled]: (state, action) => {
+            state.loading = false;
+            const {
+                error,
+                restaurant
+            } = action.payload;
+            if (error) {
+                state.error = error;
+            } else {
+                state.restaurants = [...state.restaurants, restaurant]
+            }
+        },
+
+        [createRestaurant.rejected]: (state, action) => {
+            state.loading = false;
+            state.error = action.payload.error;
+        },
+
+
         [listRestaurants.pending]: (state) => {
             state.loading = true;
         },
@@ -72,12 +129,10 @@ export const restaurantSlice = createSlice({
             state.error = action.payload.error;
         },
 
-
-
-        [createRestaurant.pending]: (state) => {
+        [removeRestaurant.pending]: (state) => {
             state.loading = true;
         },
-        [createRestaurant.fulfilled]: (state, action) => {
+        [removeRestaurant.fulfilled]: (state, action) => {
             state.loading = false;
             const {
                 error,
@@ -86,13 +141,41 @@ export const restaurantSlice = createSlice({
             if (error) {
                 state.error = error;
             } else {
-                state.restaurants = [...state.restaurants, restaurant]
+                const found = state.restaurants.findIndex(r => r.id === restaurant.id)
+                const restoCopy = state.restaurants.splice(found, 1)
+                state.restaurants = restoCopy
             }
         },
-        [createRestaurant.rejected]: (state, action) => {
+        [removeRestaurant.rejected]: (state, action) => {
             state.loading = false;
             state.error = action.payload.error;
         },
+
+
+        [updateRestaurant.pending]: (state) => {
+            state.loading = true;
+        },
+        [updateRestaurant.fulfilled]: (state, action) => {
+            state.loading = false;
+            const {
+                error,
+                restaurant
+            } = action.payload;
+            if (error) {
+                state.error = error;
+            } else {
+                const found = state.restaurants.findIndex(r => r.id === restaurant.id)
+                const restoCopy = state.restaurants.splice(found, 1, restaurant)
+                state.restaurants = restoCopy
+            }
+        },
+        [updateRestaurant.rejected]: (state, action) => {
+            state.loading = false;
+            state.error = action.payload.error;
+        },
+
+
+
 
 
 

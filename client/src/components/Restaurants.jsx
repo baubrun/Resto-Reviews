@@ -5,21 +5,35 @@ import { useDispatch, useSelector } from "react-redux";
 import MonetizationOnOutlinedIcon from "@material-ui/icons/MonetizationOnOutlined";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from '@material-ui/icons/Delete';
 
-import { listRestaurants, createRestaurant, restaurantState } from "../redux/restaurantSlice";
+import {
+  listRestaurants,
+  createRestaurant,
+  restaurantState,
+  removeRestaurant,
+  updateRestaurant,
+} from "../redux/restaurantSlice";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
     margin: "0 2px",
   },
   table: {
-    margin: "16px 0"
+    margin: "16px 0",
+  },
+  deleteIcon: {
+    color: theme.palette.secondary.light
+  },
+  editIcon: {
+    color: "#00acc1"
   }
 }));
 
 const Restaurants = () => {
   const dispatch = useDispatch();
-  const {restaurants} = useSelector(restaurantState)
+  const { restaurants } = useSelector(restaurantState);
   const [values, setValues] = useState({
     name: "",
     location: "",
@@ -29,7 +43,6 @@ const Restaurants = () => {
   useEffect(() => {
     dispatch(listRestaurants());
   }, [dispatch]);
-
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -60,12 +73,12 @@ const Restaurants = () => {
         values={values}
       />
 
-      <Grid 
-      container 
-      direction="row" 
-      justify="center" 
-      alignItems="center"
-      className={classes.table}
+      <Grid
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        className={classes.table}
       >
         <Grid item xs={10}>
           <MaterialTable
@@ -83,7 +96,8 @@ const Restaurants = () => {
                 letterSpacing: "2px",
               },
               rowStyle: {
-                backgroundColor: "#00838f",
+                // backgroundColor: "rgb(0, 131, 143, 0.5)",
+                backgroundColor: "#000",
                 fontSize: "24px",
                 color: "white",
                 fontWeight: "bolder",
@@ -94,6 +108,7 @@ const Restaurants = () => {
               { title: "Location", field: "location" },
               { title: "Price", field: "price_range" },
               { title: "id", field: "id", hidden: true },
+              { title: "Ratings", field: "ratings" },
             ]}
             data={
               restaurants &&
@@ -115,6 +130,29 @@ const Restaurants = () => {
                 };
               })
             }
+            actions={[
+              {
+                icon: () => <EditIcon className={classes.editIcon} />,
+                tooltip: "Edit",
+                onClick: (evt, rowData) =>
+                  dispatch(
+                    updateRestaurant({
+                      _id: rowData._id,
+                    })
+                  ),
+              },
+              {
+                icon: () => <DeleteIcon className={classes.deleteIcon} />,
+                tooltip: "Delete",
+                onClick: (evt, rowData) => {
+                  dispatch(
+                    removeRestaurant({
+                      id: rowData.id,
+                    })
+                  );
+                },
+              },
+            ]}
           />
         </Grid>
       </Grid>
