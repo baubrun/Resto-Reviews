@@ -28,7 +28,9 @@ const Reviews = (props) => {
 
   return (
     <Box>
-      <ReviewDetail reviews={reviews} />
+      <ReviewDetail 
+      restaurantId={restaurantId} 
+      reviews={reviews} />
       <ReviewForm restaurantId={restaurantId} />
     </Box>
   );

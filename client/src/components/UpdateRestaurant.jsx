@@ -98,9 +98,7 @@ const UpdateRestaurant = ({ match }) => {
     history.push("/");
   };
 
-  // if (restaurants.length > 0) {
-  //   return <Spinner />
-  // }
+
   return (
     <Paper className={classes.paper} elevation={3}>
       <form onSubmit={handleSubmit}>

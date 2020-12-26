@@ -1,4 +1,6 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useState, useEffect} from "react";
+import { useSelector } from "react-redux";
 
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -9,6 +11,8 @@ import Grid from "@material-ui/core/Grid";
 
 import Carousel from "react-material-ui-carousel";
 import Rating from "./Rating"
+
+import { restaurantState } from "../redux/restaurantSlice";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -39,6 +43,22 @@ const useStyles = makeStyles((theme) => ({
 
 const ReviewDetail = (props) => {
   const classes = useStyles();
+  const { restaurants } = useSelector(restaurantState);
+  const [restaurantName, setRestaurantName] = useState("")
+
+
+  const getName = () => {
+    const found = restaurants.find(i => i.id === props.restaurantId)
+    return found.name
+  }
+
+
+  useEffect(() => {
+    setRestaurantName(getName())
+  }, [])
+
+
+
 
   if (props.reviews.length < 1) {
     return (
@@ -63,7 +83,7 @@ const ReviewDetail = (props) => {
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item>
           <Typography className={classes.title} variant="h4">
-            REVIEWS
+            {restaurantName}
           </Typography>
         </Grid>
       </Grid>
