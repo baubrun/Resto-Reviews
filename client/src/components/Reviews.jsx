@@ -1,40 +1,34 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, {useEffect} from "react";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
 import Box from "@material-ui/core/Box";
-import { makeStyles } from "@material-ui/core/styles";
-
-import { restaurantState } from "../redux/restaurantSlice";
 
 import ReviewDetail from "./ReviewDetail";
 import ReviewForm from "./ReviewForm";
 
+import { reviewState, listReviews } from "../redux/reviewSlice";
+
 
 
 const Reviews = (props) => {
-  const { restaurants } = useSelector(restaurantState);
-  const [reviews, setReviews] = useState([]);
+  const dispatch = useDispatch();
+  const { reviews } = useSelector(reviewState);
 
   const restaurantId = props.match.params.restaurantId;
 
-  const getReviews = () => {
-    const found = restaurants.filter((i) => i.id == restaurantId);
-    return found;
-  };
-
 
   useEffect(() => {
-    if (restaurants.length > 0) {
-      setReviews(getReviews());
-    }
+    dispatch(listReviews(restaurantId))
   }, []);
+
 
 
   return (
     <Box>
-      <ReviewDetail restaurants={reviews} />
+      <ReviewDetail reviews={reviews} />
       <ReviewForm restaurantId={restaurantId} />
     </Box>
   );

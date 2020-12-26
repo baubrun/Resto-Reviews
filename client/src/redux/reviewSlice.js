@@ -14,7 +14,7 @@ export const createReview = createAsyncThunk(
     async (data) => {
         try {
             const res = await axios.post(
-                `${domain}/api/review`,
+                `${domain}/api/reviews`,
                 data
             )
             return res.data
@@ -28,9 +28,9 @@ export const createReview = createAsyncThunk(
 
 export const listReviews = createAsyncThunk(
     "/listReviews",
-    async () => {
+    async (restaurantId) => {
         try {
-            const res = await axios.get(`${domain}/api/reviews`);
+            const res = await axios.get(`${domain}/api/reviews/${restaurantId}`);
             return res.data;
         } catch (error) {
             return {

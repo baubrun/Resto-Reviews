@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     width: "auto",
-    margin: "32px 0",
   },
   cancel: {
     backgroundColor: theme.palette.secondary.main,
@@ -55,17 +54,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
+const initValues = {
+        comment: "",
+        name: "",
+        rating: "",
+        restaurant_id: "",
+}
+
+
 const ReviewForm = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
-  const [values, setValues] = useState({
-    comment: "",
-    name: "",
-    rating: "",
-    restaurant_id: props.restaurantId
-
-  });
+  const [values, setValues] = useState(initValues);
 
 
   const handleChange = (event) => {
@@ -84,13 +87,14 @@ const ReviewForm = (props) => {
       name: values.name,
       comment: values.comment,
       rating: values.rating,
-      restaurant_id: values.restaurant_id
+      restaurant_id: props.restaurantId,
     };
 
     dispatch(createReview(data));
+    setValues({initValues});
   };
 
-
+  
   return (
     <>
       <Grid container direction="row" justify="center" alignItems="center">

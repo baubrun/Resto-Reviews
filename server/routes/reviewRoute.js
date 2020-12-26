@@ -5,8 +5,14 @@ const router = express.Router()
 
 
 router.route("/api/reviews")
-    .get(ReviewController.list)
     .post(ReviewController.create)
+
+
+router.route("/api/reviews/:restaurantId")
+    .get(ReviewController.list)
+
+
+
 
 
 module.exports = router
