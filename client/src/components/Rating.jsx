@@ -1,0 +1,30 @@
+import React from "react";
+import Box from "@material-ui/core/Box";
+
+
+const style = {
+    color: "#fff",
+    margin: "8px 0 0 8px",
+    letterSpacing: "4px"
+}
+
+
+const Rating = (props) => {
+  const stars = [];
+
+  for (let i = 0; i < 5; i++) {
+    if (i <= props.rating) {
+      stars.push(<i class="fas fa-star"></i>);
+    } else {
+      stars.push(<i class="far fa-star"></i>);
+    }
+  }
+
+  return (
+    <>
+      <Box style={style}>{stars}</Box>
+    </>
+  );
+};
+
+export default Rating;

@@ -8,6 +8,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
 import Carousel from "react-material-ui-carousel";
+import Rating from "./Rating"
+
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -30,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bolder",
     margin: "8px 0",
   },
+  rating: {
+    color: "#ff"
+  } 
 }));
 
 const ReviewDetail = (props) => {
@@ -73,7 +78,7 @@ const ReviewDetail = (props) => {
             {props.reviews.map((item, idx) => (
               <Card key={idx} className={classes.card}>
                 <CardHeader className={classes.cardHeader} title={item.name} />
-
+                <Rating rating={item.rating}/>
                 <CardContent className={classes.cardContent}>
                   <Typography variant="h6">{item.comment}</Typography>
                 </CardContent>
