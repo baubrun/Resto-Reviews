@@ -98,7 +98,7 @@ const ReviewDetail = (props) => {
             {props.reviews.map((item, idx) => (
               <Card key={idx} className={classes.card}>
                 <CardHeader className={classes.cardHeader} title={item.name} />
-                <Rating rating={item.rating}/>
+                <Rating rating={item.rating}/> <span>{item.count}</span>
                 <CardContent className={classes.cardContent}>
                   <Typography variant="h6">{item.comment}</Typography>
                 </CardContent>

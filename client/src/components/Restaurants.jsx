@@ -107,7 +107,7 @@ const Restaurants = () => {
               { title: "Location", field: "location" },
               { title: "Price", field: "price_range" },
               { title: "id", field: "id", hidden: true },
-              { title: "Ratings", field: "ratings" },
+              { title: "Rating", field: "ratings" },
             ]}
             data={
               restaurants &&

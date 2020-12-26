@@ -12,20 +12,20 @@ const Rating = (props) => {
 
   for (let i = 1; i <= 5; i++) {
     if (i <= props.rating) {
-      stars.push(<i class="fas fa-star"></i>);
+      stars.push(<i key={i} className="fas fa-star"></i>);
     } else if (
       i === Math.ceil(props.rating) &&
       !Number.isInteger(props.rating)
     ) {
-      stars.push(<i class="fas fa-star-half-alt"></i>);
+      stars.push(<i key={i} className="fas fa-star-half-alt"></i>);
     } else {
-      stars.push(<i class="far fa-star"></i>);
+      stars.push(<i key={i} className="far fa-star"></i>);
     }
   }
 
   return (
     <>
-      <Box style={style}>{stars}</Box>
+      <Box style={style}>{stars} </Box>
     </>
   );
 };

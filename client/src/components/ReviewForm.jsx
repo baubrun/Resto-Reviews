@@ -157,6 +157,7 @@ const ReviewForm = (props) => {
                 type="text"
                 value={values.comment}
                 variant="outlined"
+                InputLabelProps={{ shrink: true }}
               />
             </Grid>
           </Grid>
