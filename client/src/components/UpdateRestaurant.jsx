@@ -109,7 +109,7 @@ const UpdateRestaurant = ({ match }) => {
           spacing={4}
         >
           <Grid item>
-            <Typography variant="h3">UPDATE RESTAURANT</Typography>
+            <Typography variant="h4">UPDATE</Typography>
           </Grid>
           <Grid item className={classes.textfield}>
             <TextField
