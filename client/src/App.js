@@ -2,7 +2,6 @@ import React from 'react'
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./views/Home"
 import UpdateRestaurant from "./components/UpdateRestaurant"
-import ReviewDetail from "./components/ReviewDetail"
 import NotFound from "./components/NotFound"
 import "./css/app.css"
 import Reviews from './components/Reviews';

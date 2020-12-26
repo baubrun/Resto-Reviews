@@ -20,6 +20,7 @@ import {
 
 
 import Spinner from "./Spinner";
+import Rating from "./Rating";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -106,7 +107,7 @@ const Restaurants = () => {
               { title: "Location", field: "location" },
               { title: "Price", field: "price_range" },
               { title: "id", field: "id", hidden: true },
-              // { title: "Ratings", field: "ratings" },
+              { title: "Ratings", field: "ratings" },
             ]}
             data={
               restaurants &&
@@ -115,7 +116,8 @@ const Restaurants = () => {
                   id: item.id,
                   name: item.name,
                   location: item.location,
-                  price_range: [...Array(item.price_range).keys()].map(
+                  price_range: 
+                  [...Array(item.price_range).keys()].map(
                     (i, idx) => {
                       return (
                         <MonetizationOnOutlinedIcon
@@ -125,6 +127,7 @@ const Restaurants = () => {
                       );
                     }
                   ),
+                  ratings: <Rating rating={item.avg_rating} /> 
                 };
               })
             }

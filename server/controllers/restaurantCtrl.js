@@ -2,7 +2,11 @@ const db = require("../db");
 
 
 const create = async (req, res) => {
-  const { name, location, price_range } = req.body;
+  const {
+    name,
+    location,
+    price_range
+  } = req.body;
 
   const text = "INSERT INTO restaurants(name, location, price_range)";
   const values = "VALUES($1, $2, $3)";
@@ -26,8 +30,13 @@ const create = async (req, res) => {
 
 
 const list = async (req, res) => {
+  const text = `SELECT * from restaurants LEFT JOIN
+  (SELECT restaurant_id, COUNT(*), 
+  TRUNC(AVG(rating), 1) as avg_rating from reviews 
+  GROUP BY restaurant_id)
+  reviews on restaurants.id = reviews.restaurant_id;`
   try {
-    const restaurants = await db.query("SELECT * FROM restaurants");
+    const restaurants = await db.query(text);
     return res.status(200).json({
       restaurants: restaurants.rows
     });
@@ -40,10 +49,19 @@ const list = async (req, res) => {
 
 
 const read = async (req, res) => {
-  const { restaurantId } = req.params;
+  const {
+    restaurantId
+  } = req.params;
   try {
+    const text = `SELECT * from restaurants LEFT JOIN
+    (SELECT restaurant_id, COUNT(*), 
+    TRUNC(AVG(rating), 1) as avg_rating from reviews 
+    GROUP BY restaurant_id)
+    reviews on restaurants.id = reviews.restaurant_id
+    WHERE id = $1`;
+
     const restaurant = await db.query(
-      "SELECT * FROM restaurants WHERE id = $1",
+      text,
       [restaurantId]
     );
     return res.status(200).json({
@@ -58,11 +76,13 @@ const read = async (req, res) => {
 
 
 const remove = async (req, res) => {
-  const { restaurantId } = req.params;
+  const {
+    restaurantId
+  } = req.params;
   try {
     const deletedId = await db.query(
-      "DELETE from restaurants WHERE id = $1 RETURNING id", 
-    [restaurantId]);
+      "DELETE from restaurants WHERE id = $1 RETURNING id",
+      [restaurantId]);
     return res.status(200).json({
       restaurantId: deletedId.rows[0].id
     });
@@ -75,8 +95,14 @@ const remove = async (req, res) => {
 
 
 const update = async (req, res) => {
-  const { name, location, price_range } = req.body;
-  const { restaurantId } = req.params;
+  const {
+    name,
+    location,
+    price_range
+  } = req.body;
+  const {
+    restaurantId
+  } = req.params;
   const text =
     "UPDATE restaurants SET name = $1, location = $2, price_range = $3 WHERE id = $4";
   const returning = "RETURNING *";

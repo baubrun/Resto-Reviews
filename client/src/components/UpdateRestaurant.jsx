@@ -10,7 +10,6 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import UpdateIcon from '@material-ui/icons/Update';
-import Spinner from "./Spinner"
 
 import { restaurantState, updateRestaurant } from "../redux/restaurantSlice";
 

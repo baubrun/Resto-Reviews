@@ -38,6 +38,7 @@ const list = async (req, res) => {
             "SELECT * FROM reviews where restaurant_id = $1",
             [restaurantId]
             );
+        
         return res.status(200).json({
             reviews: reviews.rows
         });

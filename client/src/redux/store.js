@@ -7,6 +7,5 @@ export default configureStore({
   reducer: {
     restaurants: restaurantsReducer,
     reviews: reviewsReducer,
-
   },
 });
